@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoNetMaui7.Views.FormView"
+             xmlns:vm="clr-namespace:DemoNetMaui7.ViewModels"
+             x:DataType="vm:FormViewModel"             
+             Title="">
+
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Image">
+            <MenuFlyoutSubItem Text="Increase Size">
+                <MenuFlyoutItem Text="Just a bit"
+                                Command="{Binding IncreaseSizeCommand}"
+                                CommandParameter="10" />
+                <MenuFlyoutItem Text="A bit"
+                                Command="{Binding IncreaseSizeCommand}"
+                                CommandParameter="20" />
+                <MenuFlyoutItem Text="Way too much!"
+                                Command="{Binding IncreaseSizeCommand}"
+                                CommandParameter="30"/>
+            </MenuFlyoutSubItem>
+            <MenuFlyoutSeparator />
+            <MenuFlyoutItem Text="Reset"
+                            Command="{Binding ResetSizeCommand}" />
+        </MenuBarItem>
+        <MenuBarItem Text="View">
+            <MenuFlyoutItem Text="Refresh"
+                            Command="{Binding RefreshCommand}" />
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+
+    <VerticalStackLayout Spacing="10"
+                         Margin="10">
+        <Label Text="To Do:"
+               ToolTipProperties.Text="Something to do..."/>
+
+        <Entry Text="{Binding Description}" />
+
+        <Button Text="Save"
+                Command="{Binding SaveCommand}"
+                ToolTipProperties.Text="Click to save your data"/>
+
+        <Image Source="dotnet_bot.png"
+               HeightRequest="{Binding Width}"
+               HorizontalOptions="Center"
+               Aspect="AspectFit">
+            <Image.GestureRecognizers>
+                <PointerGestureRecognizer 
+                    PointerEnteredCommand="{Binding EnterCommand}"
+                    PointerExitedCommand="{Binding ExitCommand}"
+                    PointerMovedCommand="{Binding MoveCommand}"/>
+
+                <TapGestureRecognizer Buttons="Primary"
+                                      NumberOfTapsRequired="2"
+                                      Command="{Binding ClickCommand}"/>
+
+                <TapGestureRecognizer Buttons="Secondary"
+                                      Command="{Binding RightClickCommand}"/>
+
+            </Image.GestureRecognizers>
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity" Value="1.0" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="Opacity" Value="0.5" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+            
+        </Image>
+
+        <Label Text="Pointer Information"/>
+
+        <Editor Text="{Binding PointerInformation}"
+                HeightRequest="300"
+                IsReadOnly="False"
+                FontSize="Small"
+                FontAttributes="Bold"/>
+
+    </VerticalStackLayout>
+</ContentPage>

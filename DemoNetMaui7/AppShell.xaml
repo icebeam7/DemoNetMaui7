@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DemoNetMaui7.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:DemoNetMaui7"
+    xmlns:views="clr-namespace:DemoNetMaui7.Views"
+    Shell.FlyoutBehavior="Flyout">
+
+    <ShellContent
+        Title="Website"
+        ContentTemplate="{DataTemplate views:WebsiteView}"
+        Route="WebsitePage" />
+
+    <ShellContent
+        Title="Form"
+        ContentTemplate="{DataTemplate views:FormView}"
+        Route="FormPage" />
+
+    <ShellContent
+        Title="Places of Interest"
+        ContentTemplate="{DataTemplate views:POIsView}"
+        Route="POIsPage" />
+
+</Shell>

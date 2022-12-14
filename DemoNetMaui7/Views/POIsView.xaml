@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoNetMaui7.Views.POIsView"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:behaviors="clr-namespace:DemoNetMaui7.Behaviors"
+             xmlns:vm="clr-namespace:DemoNetMaui7.ViewModels"
+             xmlns:models="clr-namespace:DemoNetMaui7.Models"
+             x:DataType="vm:POIsViewModel">
+
+    <Grid Margin="10" 
+          RowDefinitions="Auto,Auto,*"
+          ColumnSpacing="10"
+          RowSpacing="10">
+
+        <Button Grid.Row="0"
+                Command="{Binding GetCurrentLocationCommand}"
+                Text="Get Current Location" />
+
+        <Button Grid.Row="1"
+                Command="{Binding GetPOIsCommand}"
+                Text="Get POIs" />
+
+        <maps:Map x:Name="map"
+                  Grid.Row="2"
+                  ItemsSource="{Binding POIsCollection}"
+                  MapType="Street">
+            <maps:Map.Behaviors>
+                <behaviors:MapBehavior
+                    POIs="{Binding POIs}"
+                    GoogleDirections="{Binding GoogleDirections}"
+                    IsReady="{Binding IsReady}" />
+            </maps:Map.Behaviors>
+
+            <maps:Map.ItemTemplate>
+                <DataTemplate x:DataType="models:POI">
+                    <maps:Pin
+                        Address="{Binding FullAddress}"
+                        Label="{Binding Name}"
+                        MarkerClicked="Pin_MarkerClicked"
+                        Location="{Binding GeoPosition}"
+                        Type="SavedPin" />
+                </DataTemplate>
+            </maps:Map.ItemTemplate>
+        </maps:Map>
+    </Grid>
+</ContentPage>
